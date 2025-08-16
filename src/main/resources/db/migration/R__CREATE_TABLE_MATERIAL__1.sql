@@ -7,3 +7,5 @@ CREATE TABLE IF NOT EXISTS material (
      descricao text,
      CONSTRAINT fk_unidade_medida__material foreign key(unidade_medida) references unidade_medida(id)
 );
+
+alter table material add column validade date;

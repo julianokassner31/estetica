@@ -1,13 +1,13 @@
 package br.com.jkassner.estetica.controller;
 
-import br.com.jkassner.estetica.dtos.MaterialDto;
 import br.com.jkassner.estetica.dtos.PaginationDto;
 import br.com.jkassner.estetica.dtos.ProcedimentoDto;
-import br.com.jkassner.estetica.mapper.MaterialMapper;
+import br.com.jkassner.estetica.dtos.ProcedimentoMaterialDto;
 import br.com.jkassner.estetica.mapper.ProcedimentoMapper;
 import br.com.jkassner.estetica.mapper.impl.ProcedimentoMapperImpl;
-import br.com.jkassner.estetica.model.Material;
+import br.com.jkassner.estetica.mapper.impl.ProcedimentoMaterialMapperImpl;
 import br.com.jkassner.estetica.model.Procedimento;
+import br.com.jkassner.estetica.model.ProcedimentoMaterial;
 import br.com.jkassner.estetica.repository.ProcedimentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -71,6 +71,14 @@ public class ProcedimentoController {
     @PostMapping
     public ResponseEntity<ProcedimentoDto> create(@RequestBody ProcedimentoDto req) {
         Procedimento procedimento = ProcedimentoMapper.INSTANCE.dtoTomodel(req);
+        procedimento.getProcedimentoMaterialList().clear();
+        for (ProcedimentoMaterialDto procedimentoMaterialDto : req.getProcedimentoMaterialList()) {
+            if (procedimentoMaterialDto.getMaterial() != null) {
+                ProcedimentoMaterial procedimentoMaterial = ProcedimentoMaterialMapperImpl.INSTANCE.dtoTomodel(procedimentoMaterialDto);
+                procedimentoMaterial.setProcedimento(procedimento);
+                procedimento.getProcedimentoMaterialList().add(procedimentoMaterial);
+            }
+        }
         procedimento = repository.save(procedimento);
 
         return ResponseEntity.ok(ProcedimentoMapper.INSTANCE.modelToDto(procedimento));

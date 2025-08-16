@@ -13,5 +13,5 @@ public class   ProcedimentoDto {
     private String nome;
     private double valor;
     private String descricao;
-    private List<MaterialDto> materiais = new ArrayList<>(0);
+    private List<ProcedimentoMaterialDto> procedimentoMaterialList = new ArrayList<>(0);
 }

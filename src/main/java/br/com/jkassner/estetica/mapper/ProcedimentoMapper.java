@@ -11,8 +11,8 @@ public interface ProcedimentoMapper {
 
     ProcedimentoMapper INSTANCE = Mappers.getMapper(ProcedimentoMapper.class);
 
-    @Mapping(target = "materiais", ignore = true)
+    @Mapping(target = "procedimentoMaterialList", ignore = true)
     ProcedimentoDto modelToDto(Procedimento model);
-    @Mapping(target = "materiais", ignore = true)
+    @Mapping(target = "procedimentoMaterialList", ignore = true)
     Procedimento dtoTomodel(ProcedimentoDto dto);
 }

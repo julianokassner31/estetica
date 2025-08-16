@@ -23,9 +23,6 @@ public class Procedimento implements Serializable {
     private double valor;
     @Column(name = "descricao")
     private String descricao;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "procedimento_material", joinColumns = { @JoinColumn(name = "id_procedimento") },
-            inverseJoinColumns = {@JoinColumn(name = "id_material") })
-    private List<Material> materiais = new ArrayList<>(0);
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "procedimento", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProcedimentoMaterial> procedimentoMaterialList = new ArrayList<>(0);
 }

@@ -11,6 +11,8 @@ public class MaterialDto {
     private String nome;
     private double valor;
     private double quantidade;
-    private int unidadeMedida;
+    private Integer unidadeMedida;
     private String descricao;
+    private String validade;
+    private boolean vencido;
 }

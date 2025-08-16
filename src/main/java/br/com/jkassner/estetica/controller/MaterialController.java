@@ -2,7 +2,7 @@ package br.com.jkassner.estetica.controller;
 
 import br.com.jkassner.estetica.dtos.MaterialDto;
 import br.com.jkassner.estetica.dtos.PaginationDto;
-import br.com.jkassner.estetica.mapper.MaterialMapper;
+import br.com.jkassner.estetica.mapper.impl.MaterialMapperImpl;
 import br.com.jkassner.estetica.model.Material;
 import br.com.jkassner.estetica.repository.MaterialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class MaterialController {
         Page<Material> pagination = this.repository.findAll(pageRequest);
         List<MaterialDto> materialDtos = new ArrayList<>(0);
         pagination.getContent().forEach(material ->  {
-            materialDtos.add(MaterialMapper.INSTANCE.modelToDto(material));
+            materialDtos.add(MaterialMapperImpl.INSTANCE.modelToDto(material));
         });
 
         PaginationDto<MaterialDto> materialDtoPaginationDto = new PaginationDto<>();
@@ -44,10 +44,10 @@ public class MaterialController {
 
     @PostMapping
     public ResponseEntity<MaterialDto> create(@RequestBody MaterialDto req) {
-        Material material = MaterialMapper.INSTANCE.dtoToModel(req);
+        Material material = MaterialMapperImpl.INSTANCE.dtoToModel(req);
         material = repository.save(material);
 
-        return ResponseEntity.ok(MaterialMapper.INSTANCE.modelToDto(material));
+        return ResponseEntity.ok(MaterialMapperImpl.INSTANCE.modelToDto(material));
     }
 
     @GetMapping(value = "/findByNome")
@@ -58,7 +58,7 @@ public class MaterialController {
 
         List<MaterialDto> materialDtos = new ArrayList<>();
         for (Material material : materiais) {
-            materialDtos.add(MaterialMapper.INSTANCE.modelToDto(material));
+            materialDtos.add(MaterialMapperImpl.INSTANCE.modelToDto(material));
         }
 
         return ResponseEntity.ok(materialDtos);
@@ -67,6 +67,6 @@ public class MaterialController {
     @GetMapping(value = "/findById/{id}")
     public ResponseEntity<MaterialDto> findByName(@PathVariable Integer id) {
         Optional<Material> material = repository.findById(id);
-        return material.map(value -> ResponseEntity.ok(MaterialMapper.INSTANCE.modelToDto(value))).orElseGet(() -> ResponseEntity.noContent().build());
+        return material.map(value -> ResponseEntity.ok(MaterialMapperImpl.INSTANCE.modelToDto(value))).orElseGet(() -> ResponseEntity.noContent().build());
     }
 }

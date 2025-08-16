@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table
@@ -26,4 +27,6 @@ public class Material implements Serializable {
     private UnidadeMedida unidadeMedida;
     @Column(name = "descricao")
     private String descricao;
+    @Column(name = "validade")
+    private Date validade;
 }

@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface ProcedimentoRepository extends JpaRepository<Procedimento, Integer> {
 
-    @Query("select p from Procedimento p where p.nome like %?1% order by p.nome")
-    public List<Procedimento> findByNome(String query);
+    @Query("select p from Procedimento p where p.nome ilike %?1% order by p.nome")
+    List<Procedimento> findByNome(String query);
 }

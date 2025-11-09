@@ -12,10 +12,11 @@ public interface MaterialMapper {
 
     MaterialMapper INSTANCE = Mappers.getMapper( MaterialMapper.class );
 
-    @Mappings(value = {@Mapping(target = "unidadeMedida", ignore = true),
-            @Mapping(target= "validade", ignore = true)})
+    @Mapping(target = "unidadeMedida", ignore = true)
+    @Mapping(target = "vencido", ignore = true)
+    @Mapping(target = "validade", expression = "java(material.getValidade() != null ? new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(material.getValidade()) : null)")
     MaterialDto modelToDto(Material material);
-    @Mappings(value= {@Mapping(target = "unidadeMedida", ignore = true),
-            @Mapping(target= "validade", ignore = true)})
+    @Mapping(target = "unidadeMedida", ignore = true)
+    @Mapping(target = "validade", ignore = true)
     Material dtoToModel(MaterialDto materialDto);
 }

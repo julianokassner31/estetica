@@ -9,10 +9,10 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface ProcedimentoMaterialMapper {
 
-    public static final ProcedimentoMaterialMapper INSTANCE = Mappers.getMapper(ProcedimentoMaterialMapper.class);
+    ProcedimentoMaterialMapper INSTANCE = Mappers.getMapper(ProcedimentoMaterialMapper.class);
 
     @Mapping(target = "material", ignore = true)
-    public ProcedimentoMaterialDto modelToDto(ProcedimentoMaterial model);
+    ProcedimentoMaterialDto modelToDto(ProcedimentoMaterial model);
     @Mapping(target = "material", ignore = true)
-    public ProcedimentoMaterial dtoTomodel(ProcedimentoMaterialDto dto);
+    ProcedimentoMaterial dtoTomodel(ProcedimentoMaterialDto dto);
 }

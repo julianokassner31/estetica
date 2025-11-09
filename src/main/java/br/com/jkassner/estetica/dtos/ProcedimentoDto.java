@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class   ProcedimentoDto {
+public class ProcedimentoDto {
     private Integer id;
     private String nome;
     private double valor;

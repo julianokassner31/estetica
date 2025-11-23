@@ -14,8 +14,9 @@ import java.util.Date;
 @Mapper
 public class MaterialMapperImpl  implements MaterialMapper {
 
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
     public static final MaterialMapperImpl INSTANCE = Mappers.getMapper(MaterialMapperImpl.class);
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     @Override
     public MaterialDto modelToDto(Material model) {
         MaterialDto materialDto = MaterialMapper.INSTANCE.modelToDto(model);

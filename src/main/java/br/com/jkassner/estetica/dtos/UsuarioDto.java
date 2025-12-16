@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class PacienteDto {
+public class UsuarioDto {
 
     private Integer id;
     private String nome;
@@ -20,4 +20,5 @@ public class PacienteDto {
     private String numero;
     private String bairro;
     private String cidade;
+    private boolean func;
 }

@@ -10,7 +10,7 @@ import java.util.Date;
 @Table
 @Getter
 @Setter
-public class Paciente {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +34,6 @@ public class Paciente {
     private String bairro;
     @Column(name = "cidade", nullable = false)
     private String cidade;
+    @Column(name = "func")
+    private boolean func;
 }

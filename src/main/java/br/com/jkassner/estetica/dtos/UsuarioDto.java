@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +22,5 @@ public class UsuarioDto {
     private String bairro;
     private String cidade;
     private boolean func;
+    private List<PermissaoDto> permissoes;
 }

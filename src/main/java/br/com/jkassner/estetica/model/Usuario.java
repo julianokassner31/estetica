@@ -1,13 +1,16 @@
 package br.com.jkassner.estetica.model;
 
+import br.com.jkassner.estetica.enums.EnumPermissoes;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table
+@Table(name="usuario")
 @Getter
 @Setter
 public class Usuario {
@@ -36,4 +39,10 @@ public class Usuario {
     private String cidade;
     @Column(name = "func")
     private boolean func;
+
+    @ManyToMany
+    @JoinTable(name = "usuario_permissao",
+            joinColumns = {@JoinColumn(name = "id_usuario") },
+            inverseJoinColumns = { @JoinColumn(name = "id_permissao") })
+    private List<Permissao> permissoes = new ArrayList<>(0);
 }

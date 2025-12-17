@@ -1,8 +1,11 @@
 package br.com.jkassner.estetica.controller;
 
+import br.com.jkassner.estetica.dtos.PermissaoDto;
 import br.com.jkassner.estetica.dtos.UsuarioDto;
 import br.com.jkassner.estetica.dtos.PaginationDto;
+import br.com.jkassner.estetica.mapper.PermissaoMapper;
 import br.com.jkassner.estetica.mapper.UsuarioMapper;
+import br.com.jkassner.estetica.model.Permissao;
 import br.com.jkassner.estetica.model.Usuario;
 import br.com.jkassner.estetica.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;

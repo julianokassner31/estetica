@@ -1,6 +1,5 @@
 package br.com.jkassner.estetica.model;
 
-import br.com.jkassner.estetica.enums.EnumPermissoes;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,6 +38,12 @@ public class Usuario {
     private String cidade;
     @Column(name = "func")
     private boolean func;
+    @Column(name = "username")
+    private String username;
+    @Column(name = "pass")
+    private String pass;
+    @Column(name = "enabled")
+    private boolean enabled;
 
     @ManyToMany
     @JoinTable(name = "usuario_permissao",

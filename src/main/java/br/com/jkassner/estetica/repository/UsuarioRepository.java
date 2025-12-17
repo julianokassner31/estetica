@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository;
 public interface UsuarioRepository extends AbstractRepository<Usuario>, JpaRepository<Usuario, Integer> {
 
     Page<Usuario> findByFunc(boolean func, Pageable page);
+    Usuario findByUsername(String username);
 }

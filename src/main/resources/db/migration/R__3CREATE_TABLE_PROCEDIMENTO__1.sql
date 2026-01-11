@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS procedimento (
+    id serial PRIMARY KEY,
+    nome varchar(50),
+    valor numeric(8,2),
+    descricao text,
+    idempresa int,
+    CONSTRAINT fk_procedimento_empresa FOREIGN KEY(idempresa) REFERENCES empresa(id)
+);
+
+CREATE TABLE IF NOT EXISTS procedimento_material (
+     id serial PRIMARY KEY,
+     id_procedimento int not null,
+     id_material int not null,
+     qtd_material numeric(10,2) not null
+);

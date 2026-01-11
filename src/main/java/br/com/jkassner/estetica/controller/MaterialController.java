@@ -5,10 +5,12 @@ import br.com.jkassner.estetica.dtos.PaginationDto;
 import br.com.jkassner.estetica.mapper.impl.MaterialMapperImpl;
 import br.com.jkassner.estetica.model.Material;
 import br.com.jkassner.estetica.repository.MaterialRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,9 @@ public class MaterialController {
 
     @Autowired
     private MaterialRepository repository;
+
+    @Autowired
+    private HttpServletRequest httpServletRequest;
 
     @GetMapping
     public ResponseEntity<PaginationDto<MaterialDto>> getMateriais(@RequestParam int pageIndex, @RequestParam int pageSize) {

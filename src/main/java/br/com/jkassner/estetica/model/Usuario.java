@@ -36,14 +36,13 @@ public class Usuario {
     private String bairro;
     @Column(name = "cidade", nullable = false)
     private String cidade;
-    @Column(name = "func")
-    private boolean func;
-    @Column(name = "username")
-    private String username;
     @Column(name = "pass")
     private String pass;
     @Column(name = "enabled")
     private boolean enabled;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idempresa")
+    private Empresa empresa;
 
     @ManyToMany
     @JoinTable(name = "usuario_permissao",

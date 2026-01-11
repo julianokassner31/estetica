@@ -1,12 +1,19 @@
 package br.com.jkassner.estetica.service;
 
+import br.com.jkassner.estetica.custom.UserDetailsCustom;
+import br.com.jkassner.estetica.model.Usuario;
+import br.com.jkassner.estetica.repository.UsuarioRepository;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jose.JWSSigner;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -16,18 +23,31 @@ import java.util.Date;
 @Service
 public class JwtTokenService {
 
-    public static final String SECRET = "53696044405558904234195156492744";
+    @Getter
+    @Value("${token.secret-key}")
+    private String secret;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private CryptoService cryptoService;
 
     public String gerarToken(Authentication user) {
+
         try {
+
+            UserDetailsCustom userDetailsCustom = (UserDetailsCustom) user.getPrincipal();
+
             JWTClaimsSet claims = new JWTClaimsSet.Builder()
-                    .subject(user.getName())
+                    .subject(userDetailsCustom.getUsername())
                     .issuer("estetica-auth-server")
                     .expirationTime(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))
-                    .claim("authorities", user.getAuthorities())
+                    .claim("authorities", userDetailsCustom.getAuthorities())
+                    .claim("cliente", cryptoService.encrypt(String.valueOf(userDetailsCustom.getIdEmpresa())))
                     .build();
 
-            JWSSigner signer = new MACSigner(SECRET);
+            JWSSigner signer = new MACSigner(secret);
             SignedJWT signedJWT = new SignedJWT(
                     new JWSHeader(JWSAlgorithm.HS256),
                     claims

@@ -25,4 +25,7 @@ public class Procedimento implements Serializable {
     private String descricao;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "procedimento", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProcedimentoMaterial> procedimentoMaterialList = new ArrayList<>(0);
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idempresa", nullable = false)
+    private Empresa empresa;
 }

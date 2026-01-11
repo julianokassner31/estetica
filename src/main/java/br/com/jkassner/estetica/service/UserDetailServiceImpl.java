@@ -1,5 +1,6 @@
 package br.com.jkassner.estetica.service;
 
+import br.com.jkassner.estetica.custom.UserDetailsCustom;
 import br.com.jkassner.estetica.model.Usuario;
 import br.com.jkassner.estetica.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
         List<SimpleGrantedAuthority> roles = usuario.getPermissoes().stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getNome()))
                 .collect(Collectors.toList());
+        Integer idEmpresa = usuario.getEmpresa() != null ? usuario.getEmpresa().getId() : null;
 
-        return new User(usuario.getUsername(), usuario.getPass(), roles);
+        return new UserDetailsCustom(usuario.getEmail(), usuario.getPass(), roles, idEmpresa);
     }
 
 //    public static void main(String[] args) {

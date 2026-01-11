@@ -1,11 +1,8 @@
 package br.com.jkassner.estetica.controller;
 
-import br.com.jkassner.estetica.dtos.PermissaoDto;
 import br.com.jkassner.estetica.dtos.UsuarioDto;
 import br.com.jkassner.estetica.dtos.PaginationDto;
-import br.com.jkassner.estetica.mapper.PermissaoMapper;
 import br.com.jkassner.estetica.mapper.UsuarioMapper;
-import br.com.jkassner.estetica.model.Permissao;
 import br.com.jkassner.estetica.model.Usuario;
 import br.com.jkassner.estetica.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +24,7 @@ public class UsuarioController {
     private UsuarioRepository repository;
 
     @GetMapping
-    public ResponseEntity<PaginationDto<UsuarioDto>> getUsuarios(@RequestParam boolean func, @RequestParam int pageIndex, @RequestParam int pageSize) {
+    /**public ResponseEntity<PaginationDto<UsuarioDto>> getUsuarios(@RequestParam boolean func, @RequestParam int pageIndex, @RequestParam int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize, Sort.by(Sort.Direction.ASC, "nome"));
         Page<Usuario> pagination = this.repository.findByFunc(func, pageRequest);
         List<UsuarioDto> pacientesDto = new ArrayList<>(0);
@@ -43,10 +40,18 @@ public class UsuarioController {
         materialDtoPaginationDto.setTotalElements(pagination.getTotalElements());
 
         return ResponseEntity.ok(materialDtoPaginationDto);
+    }*/
+
+    @PostMapping(value = "/cliente")
+    public ResponseEntity<UsuarioDto> create(@RequestBody UsuarioDto req) {
+        Usuario usuario = UsuarioMapper.INSTANCE.dtoToModel(req);
+        usuario = repository.save(usuario);
+
+        return ResponseEntity.ok(UsuarioMapper.INSTANCE.modelToDto(usuario));
     }
 
-    @PostMapping
-    public ResponseEntity<UsuarioDto> create(@RequestBody UsuarioDto req) {
+    @PostMapping(value = "/func")
+    public ResponseEntity<UsuarioDto> createFunc(@RequestBody UsuarioDto req) {
        Usuario usuario = UsuarioMapper.INSTANCE.dtoToModel(req);
         usuario = repository.save(usuario);
 

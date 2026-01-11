@@ -29,4 +29,7 @@ public class Material implements Serializable {
     private String descricao;
     @Column(name = "validade")
     private Date validade;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idempresa", nullable = false)
+    private Empresa empresa;
 }

@@ -4,5 +4,6 @@ public enum EnumPermissoes {
     ADMINISTRADOR,
     ATENDIMENTO,
     CADASTRO,
-    LEITURA;
+    LEITURA,
+    CLIENTE;
 }

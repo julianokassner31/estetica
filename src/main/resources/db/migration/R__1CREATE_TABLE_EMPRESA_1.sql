@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS empresa (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cnpj VARCHAR(14) NOT NULL,
+    telefone VARCHAR(11) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    responsavel VARCHAR(100) NOT NULL
+);

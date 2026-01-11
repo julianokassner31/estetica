@@ -21,6 +21,5 @@ public class UsuarioDto {
     private String numero;
     private String bairro;
     private String cidade;
-    private boolean func;
     private List<PermissaoDto> permissoes;
 }

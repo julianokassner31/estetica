@@ -44,7 +44,7 @@ public class JwtTokenService {
                     .issuer("estetica-auth-server")
                     .expirationTime(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))
                     .claim("authorities", userDetailsCustom.getAuthorities())
-                    .claim("cliente", cryptoService.encrypt(String.valueOf(userDetailsCustom.getIdEmpresa())))
+                    .claim("empresa", cryptoService.encrypt(String.valueOf(userDetailsCustom.getIdEmpresa())))
                     .build();
 
             JWSSigner signer = new MACSigner(secret);

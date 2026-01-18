@@ -1,6 +1,7 @@
 package br.com.jkassner.estetica.filter;
 
 import br.com.jkassner.estetica.custom.UserDetailsCustom;
+import br.com.jkassner.estetica.service.CryptoService;
 import br.com.jkassner.estetica.service.JwtTokenService;
 import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.MACVerifier;
@@ -32,6 +33,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtTokenService tokenService;
+
+    @Autowired
+    private CryptoService cryptoService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -67,7 +71,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
                 Integer idEmpresa = null;
                 if(!request.getRequestURI().contains("/usuario/cliente")) {
-                    idEmpresa = (Integer) signedJWT.getJWTClaimsSet().getClaim("empresa");
+                    idEmpresa = Integer.parseInt(cryptoService.decrypt((String) signedJWT.getJWTClaimsSet().getClaim("empresa")));
                 }
 
                 UserDetailsCustom userDetailsCustom = new UserDetailsCustom(username, null, authorities, idEmpresa);

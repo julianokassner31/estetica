@@ -26,7 +26,7 @@ public class UnidadeMedidaController {
     @Autowired
     private UnidadeMedidaRepository repository;
 
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR')")
     @GetMapping
     public ResponseEntity<PaginationDto<UnidadeMedidaDto>> getUnidadesMedidas(@RequestParam int pageIndex, @RequestParam int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageIndex, pageSize, Sort.by(Sort.Direction.ASC, "descricao"));

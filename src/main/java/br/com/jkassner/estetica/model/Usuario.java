@@ -3,11 +3,19 @@ package br.com.jkassner.estetica.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@FilterDef(
+        name = "tenantFilter",
+        parameters = @ParamDef(name = "idEmpresa", type = Integer.class)
+)
+@Filter(name = "tenantFilter",  condition = "idempresa = :idEmpresa")
 @Entity
 @Table(name="usuario")
 @Getter
@@ -40,7 +48,9 @@ public class Usuario {
     private String pass;
     @Column(name = "enabled")
     private boolean enabled;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Column(name = "idempresa", insertable = false, updatable = false)
+    private Integer idEmpresa;
+    @ManyToOne
     @JoinColumn(name = "idempresa")
     private Empresa empresa;
 

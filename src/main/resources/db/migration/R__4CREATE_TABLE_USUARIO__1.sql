@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     numero varchar(50) NOT NULL,
     bairro varchar(100) NOT NULL,
     cidade varchar(100) NOT NULL,
-    pass text NOT null,
+    pass text,
     enabled boolean default false,
     idempresa int default null,
     CONSTRAINT fk_usuario__empresa FOREIGN KEY(idempresa) REFERENCES empresa(id)

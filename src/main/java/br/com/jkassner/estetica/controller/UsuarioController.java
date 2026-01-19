@@ -44,6 +44,26 @@ public class UsuarioController {
         return ResponseEntity.ok(materialDtoPaginationDto);
     }
 
+    @PreAuthorize("hasAnyAuthority('CADASTRO', 'ATENDIMENTO', 'LEITURA', 'ADMINISTRADOR')")
+    @GetMapping(value = "/cliente")
+    public ResponseEntity<PaginationDto<UsuarioDto>> getClientes(@RequestParam int pageIndex, @RequestParam int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageIndex, pageSize, Sort.by(Sort.Direction.ASC, "nome"));
+        Page<Usuario> pagination = this.usuarioService.findAll(pageRequest);
+        List<UsuarioDto> usuarioDtos = new ArrayList<>(0);
+        pagination.getContent().forEach(usuario ->  {
+            usuarioDtos.add(UsuarioMapper.INSTANCE.modelToDto(usuario));
+        });
+
+        PaginationDto<UsuarioDto> materialDtoPaginationDto = new PaginationDto<>();
+        materialDtoPaginationDto.setElements(usuarioDtos);
+        materialDtoPaginationDto.setPage(pageIndex);
+        materialDtoPaginationDto.setSize(pagination.getSize());
+        materialDtoPaginationDto.setTotalPages(pagination.getTotalPages());
+        materialDtoPaginationDto.setTotalElements(pagination.getTotalElements());
+
+        return ResponseEntity.ok(materialDtoPaginationDto);
+    }
+
     @PreAuthorize("hasAnyAuthority('CADASTRO', 'CLIENTE')")
     @PostMapping(value = "/cliente")
     public ResponseEntity<UsuarioDto> createCliente(@RequestBody UsuarioDto req) {

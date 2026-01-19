@@ -1,5 +1,6 @@
 package br.com.jkassner.estetica.service;
 
+import br.com.jkassner.estetica.annotation.TenantAware;
 import br.com.jkassner.estetica.interceptors.TenantJpaInterceptor;
 import br.com.jkassner.estetica.model.Usuario;
 import br.com.jkassner.estetica.repository.UsuarioRepository;
@@ -20,9 +21,10 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @TenantAware
     @Transactional(readOnly = true)
     public Page<Usuario> findAll(PageRequest page) {
-        tenantJpaInterceptor.enableTenantFilter();
         return usuarioRepository.findAll(page);
     }
 

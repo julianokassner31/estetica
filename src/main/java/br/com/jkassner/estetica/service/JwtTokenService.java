@@ -39,19 +39,22 @@ public class JwtTokenService {
 
             UserDetailsCustom userDetailsCustom = (UserDetailsCustom) user.getPrincipal();
 
-            JWTClaimsSet claims = new JWTClaimsSet.Builder()
+            JWTClaimsSet.Builder builder = new JWTClaimsSet.Builder()
                     .subject(userDetailsCustom.getUsername())
-                    .issuer("estetica-auth-server")
+                    .issuer("hub-services-auth-server")
                     .expirationTime(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))
                     .claim("authorities", userDetailsCustom.getAuthorities())
-                    .claim("empresa", cryptoService.encrypt(String.valueOf(userDetailsCustom.getIdEmpresa())))
-                    .build();
+                    .claim("usuario", cryptoService.encrypt(String.valueOf(userDetailsCustom.getIdUsuario())))
+                    .claim("nome", userDetailsCustom.getNome());
+
+            if (userDetailsCustom.getIdEmpresa() != null) {
+                builder.claim("empresa", cryptoService.encrypt(String.valueOf(userDetailsCustom.getIdEmpresa())));
+            }
+
+            JWTClaimsSet claims = builder.build();
 
             JWSSigner signer = new MACSigner(secret);
-            SignedJWT signedJWT = new SignedJWT(
-                    new JWSHeader(JWSAlgorithm.HS256),
-                    claims
-            );
+            SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claims);
 
             signedJWT.sign(signer);
 

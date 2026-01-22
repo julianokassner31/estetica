@@ -6,13 +6,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class SecurityUtils {
 
-    public static Integer getIdEmpresa() {
+    public static UserDetailsCustom getUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth == null || !(auth.getPrincipal() instanceof UserDetailsCustom user)) {
             throw new IllegalStateException("Usuário não autenticado");
         }
 
-        return user.getIdEmpresa();
+        return user;
     }
 }

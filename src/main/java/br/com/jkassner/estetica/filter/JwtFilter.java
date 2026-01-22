@@ -74,7 +74,9 @@ public class JwtFilter extends OncePerRequestFilter {
                     idEmpresa = Integer.parseInt(cryptoService.decrypt((String) signedJWT.getJWTClaimsSet().getClaim("empresa")));
                 }
 
-                UserDetailsCustom userDetailsCustom = new UserDetailsCustom(username, null, authorities, idEmpresa);
+                Integer idUsuario = Integer.parseInt(cryptoService.decrypt((String) signedJWT.getJWTClaimsSet().getClaim("usuario")));
+
+                UserDetailsCustom userDetailsCustom = new UserDetailsCustom(idUsuario, null, username, null, authorities, idEmpresa);
 
                 UsernamePasswordAuthenticationToken auth =
                         new UsernamePasswordAuthenticationToken(

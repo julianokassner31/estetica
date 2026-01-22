@@ -1,5 +1,6 @@
 package br.com.jkassner.estetica.model;
 
+import br.com.jkassner.estetica.model.auditor.AuditorInfo;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +22,7 @@ import java.util.List;
 @Table(name="usuario")
 @Getter
 @Setter
-public class Usuario {
+public class Usuario  extends AuditorInfo implements Serializable  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,11 +50,6 @@ public class Usuario {
     private String pass;
     @Column(name = "enabled")
     private boolean enabled;
-    @Column(name = "idempresa", insertable = false, updatable = false)
-    private Integer idEmpresa;
-    @ManyToOne
-    @JoinColumn(name = "idempresa")
-    private Empresa empresa;
 
     @ManyToMany
     @JoinTable(name = "usuario_permissao",

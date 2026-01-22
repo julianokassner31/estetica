@@ -21,5 +21,6 @@ public class UsuarioDto {
     private String numero;
     private String bairro;
     private String cidade;
+    private String pass;
     private List<PermissaoDto> permissoes;
 }

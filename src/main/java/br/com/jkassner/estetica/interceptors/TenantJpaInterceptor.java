@@ -14,7 +14,7 @@ public class TenantJpaInterceptor {
     private EntityManager entityManager;
 
     public void enableTenantFilter() {
-        Integer tenantId = SecurityUtils.getIdEmpresa();
+        Integer tenantId = SecurityUtils.getUser().getIdEmpresa();
 
         if (tenantId == null) {
             throw new AccessDeniedException("Tenant não encontrado");

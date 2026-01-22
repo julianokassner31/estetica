@@ -13,5 +13,8 @@ CREATE TABLE IF NOT EXISTS usuario (
     pass text,
     enabled boolean default false,
     idempresa int default null,
-    CONSTRAINT fk_usuario__empresa FOREIGN KEY(idempresa) REFERENCES empresa(id)
+    createdby int not null,
+    createdat timestamp(0) without time zone,
+    updatedby int not null,
+    updatedat timestamp(0) without time zone
 );

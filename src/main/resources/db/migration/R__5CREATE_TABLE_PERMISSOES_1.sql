@@ -17,4 +17,4 @@ INSERT INTO permissao (nome, descricao)
            ('ATENDIMENTO', 'Pode iniciar um atendimento.'),
            ('CADASTRO', 'Pode CRUD, produtos, material, atendimento, etc...'),
            ('LEITURA', 'Pode ler cadastros e atendimentos.'),
-           ('USUARIO', 'Cliente das empresa, pode solicitar atendimento');
+           ('CLIENTE', 'Cliente das empresa, pode solicitar atendimento');
